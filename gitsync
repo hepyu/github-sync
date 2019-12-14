@@ -1,0 +1,26 @@
+#!/bin/sh
+#WORKDIR=clone到的目标目录
+#REPO_NAME="仓库名称"
+#REPO_URL="你的git工程地址"
+if [ ! -n "$WORKDIR" ]; then
+  echo 'WORKDIR must set!'
+  exit 1
+fi
+if [ ! -n "$REPO_NAME" ]; then
+  echo "REPO_NAME must set!"
+  exit 1
+fi
+if [ ! -n "$REPO_URL" ]; then
+  echo "GIT_URL must set!"
+  exit 1
+fi
+
+if [ ! -d "$WORKDIR/$REPO_NAME/" ];then
+  cd $WORKDIR
+  git clone $REPO_URL
+else
+  cd $WORKDIR
+  cd $REPO_NAME
+  git reset --hard
+  git pull
+fi
